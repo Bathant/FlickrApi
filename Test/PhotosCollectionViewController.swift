@@ -24,10 +24,12 @@ class PhotosCollectionViewController: UICollectionViewController {
     let fh : FlickrHelper = FlickrHelper()
     var PhotosArr : NSMutableArray = NSMutableArray()
     var finished : Bool!
+     var height : CGFloat!
     var appdelegate = UIApplication.shared.delegate as! AppDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         finished = true
+          height = 0
         let layout = collectionViewLayout as! FlickrCollectionViewCell
         layout.delegate = self as! FlickrLayoutDelegate
         layout.numberOfColumns = 2
@@ -207,7 +209,7 @@ extension PhotosCollectionViewController : FlickrLayoutDelegate
 {
     func collectionView(collectionView:UICollectionView, heightForPhotoAtIndexPath indexPath:NSIndexPath) -> CGFloat
     {
-        var height : CGFloat! = 0
+       
         if indexPath.row <= PhotosArr.count - 1{
             let flickobj = self.PhotosArr[indexPath.row] as! FlickrPhoto
             height = CGFloat(flickobj.Height)
@@ -215,7 +217,8 @@ extension PhotosCollectionViewController : FlickrLayoutDelegate
             return   height
         }
         else{
-            return height + 100
+            print("height is \(height)")
+            return height
         }
     }
     func collectionView(collectionView: UICollectionView,
